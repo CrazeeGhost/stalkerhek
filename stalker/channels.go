@@ -117,15 +117,17 @@ func (p *Portal) RetrieveChannels() (map[string]*Channel, error) {
 	// Build channels list and return
 	channels := make(map[string]*Channel, len(tmp.Js.Data))
 	for _, v := range tmp.Js.Data {
-		channels[v.Name] = &Channel{
-			Title:     v.Name,
-			CMD:       v.Cmd,
-			LogoLink:  v.Logo,
-			Portal:    p,
-			GenreID:   v.GenreID,
-			Genres:    &genres,
-			CMD_CH_ID: v.CMDs[0].ID,
-			CMD_ID:    v.CMDs[0].CH_ID,
+		if (len(v.CMDs) != 0) {
+			channels[v.Name] = &Channel{
+				Title:     v.Name,
+				CMD:       v.Cmd,
+				LogoLink:  v.Logo,
+				Portal:    p,
+				GenreID:   v.GenreID,
+				Genres:    &genres,
+				CMD_CH_ID: v.CMDs[0].ID,
+				CMD_ID:    v.CMDs[0].CH_ID,
+			}
 		}
 	}
 
